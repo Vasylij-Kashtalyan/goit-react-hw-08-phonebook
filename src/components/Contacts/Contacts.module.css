@@ -1,0 +1,82 @@
+.div {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.item {
+  margin-bottom: 10px;
+}
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+/* add */
+.form {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.form__label {
+  display: contents;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 24px;
+  margin-left: 24px;
+}
+
+.form__input {
+  padding: 12px 16px;
+  border: 1px solid rgba(123, 8, 123, 0.2);
+  border-radius: 4px;
+  font: inherit;
+  letter-spacing: 0.01em;
+  resize: none;
+  margin-bottom: 12px;
+}
+.form__input:hover {
+  border-color: rgb(245, 24, 208);
+}
+
+.form__button {
+  cursor: pointer;
+  width: 100%;
+  margin-left: auto;
+  border-radius: 4px;
+  padding: 12px 24px;
+  background-color: indigo;
+  color: white;
+  font-weight: 500;
+  border: none;
+}
+
+.form__button:hover {
+  box-shadow: 0px 4px 4px rgba(142, 6, 221, 0.15);
+  background-color: rgb(70, 8, 114);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.buttonDelete {
+  margin-right: 5px;
+  display: inline-block;
+  padding: 5px 5px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  background-color: white;
+  border: 2px solid #ee1a1a;
+  border-radius: 15px;
+  font-weight: 600;
+}
+.buttonDelete:hover {
+  background-color: #ee1a1a;
+  color: white;
+}
