@@ -1,10 +1,10 @@
-import s from "./AppBar.module.css";
-import { Outlet } from "react-router-dom";
-import { Navigation } from "./Navigation/Navigation";
-import { AuthNav } from "./AuthNav/AuthNav";
-import { UserMenu } from "./UserMenu/UserMenu";
-import { useSelector } from "react-redux";
-import authSelelector from "../../redux/auth/authSelector";
+import s from './AppBar.module.css';
+import { Outlet } from 'react-router-dom';
+import { Navigation } from './Navigation/Navigation';
+import { AuthNav } from './AuthNav/AuthNav';
+import { UserMenu } from './UserMenu/UserMenu';
+import { useSelector } from 'react-redux';
+import authSelelector from '../../redux/auth/authSelector';
 
 export const AppBar = () => {
   const isLoggedIn = useSelector(authSelelector.getIsLoggedIn);

@@ -1,42 +1,65 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import {
   addContact,
   fetchContacts,
   removeContact,
-} from "../../redux/contacts/contactsOperations";
-import s from "./Contacts.module.css";
-import Filter from "../Filter/Filter";
+} from 'redux/contacts/contactsOperations';
+import s from './Contacts.module.css';
+import Filter from '../Filter/Filter';
+import Notiflix from 'notiflix';
 
 export const Contacts = () => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+
   const dispatch = useDispatch();
-  const [contact, setContact] = useState({
-    name: "",
-    number: "",
-  });
-  const { items, filter } = useSelector((state) => state.contacts);
+  const { items, filter } = useSelector(state => state.contacts);
 
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setContact((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const handleChange = ({ target: { name, value } }) => {
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+
+      case 'number':
+        setNumber(value);
+        break;
+
+      default:
+        return;
+    }
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = e => {
     e.preventDefault();
-    dispatch(addContact(contact));
-    setContact({ name: "", number: "" });
+
+    if (
+      items.map(items => items.name.toLowerCase()).includes(name.toLowerCase())
+    ) {
+      return Notiflix.Notify.warning(`${name} is already in contacts`);
+    }
+
+    dispatch(addContact({ name, number }));
+
+    if (addContact.fulfilled) {
+      reset();
+      return Notiflix.Notify.success(`${name} is adde in contacts`);
+    }
+  };
+
+  const reset = () => {
+    setName('');
+    setNumber('');
   };
 
   return (
     <div className={s.div}>
       <div>
-        <h3 className={s.title}>New Contact</h3>
         <form className={s.form} onSubmit={handleSubmit}>
           <input
             onChange={handleChange}
@@ -72,7 +95,7 @@ export const Contacts = () => {
             .filter(({ name }) =>
               name.toLowerCase().includes(filter.toLowerCase())
             )
-            .map((contact) => {
+            .map(contact => {
               return (
                 <li key={contact.id} className={s.item}>
                   <button

@@ -1,17 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchContacts, addContact, removeContact } from "./contactsOperations";
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchContacts, addContact, removeContact } from './contactsOperations';
 
 const setError = (state, { payload }) => {
-  state.status = "rejected";
+  state.status = 'rejected';
   state.error = payload;
 };
-const setPending = (state) => {
-  state.status = "loading";
+const setPending = state => {
+  state.status = 'loading';
   state.error = null;
 };
 const contactsSlice = createSlice({
-  name: "contacts",
-  initialState: { items: [], filter: "", status: null, error: null },
+  name: 'contacts',
+  initialState: { items: [], filter: '', status: null, error: null },
   reducers: {
     filterContacts: (state, { payload }) => {
       return { ...state, filter: payload };
@@ -19,7 +19,7 @@ const contactsSlice = createSlice({
   },
   extraReducers: {
     [fetchContacts.fulfilled]: (state, { payload }) => {
-      state.status = "resolved";
+      state.status = 'resolved';
       state.items = payload;
     },
     [removeContact.fulfilled]: (state, { payload }) => {

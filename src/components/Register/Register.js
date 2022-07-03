@@ -1,39 +1,42 @@
-import s from "./Register.module.css";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { register } from "../../redux/auth/authOperation";
-import { Link } from "react-router-dom";
-import { ModalWindow } from "../Modal/Modal";
+import s from './Register.module.css';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { register } from 'redux/auth/authOperation';
+import { Link } from 'react-router-dom';
+import { ModalWindow } from '../Modal/Modal';
 
 export const Register = () => {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
-      case "name":
+      case 'name':
         return setName(value);
-      case "email":
+      case 'email':
         return setEmail(value);
-      case "password":
+      case 'password':
         return setPassword(value);
       default:
         return;
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     dispatch(register({ name, email, password }));
-    reset();
+
+    if (register.fulfilled) {
+      reset();
+    }
   };
 
   const reset = () => {
-    setName("");
-    setEmail("");
-    setPassword("");
+    setName('');
+    setEmail('');
+    setPassword('');
   };
 
   return (

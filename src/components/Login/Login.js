@@ -1,35 +1,38 @@
-import s from "./Login.module.css";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { login } from "../../redux/auth/authOperation";
-import { Link } from "react-router-dom";
-import { ModalWindow } from "../Modal/Modal";
+import s from './Login.module.css';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from 'redux/auth/authOperation';
+import { Link } from 'react-router-dom';
+import { ModalWindow } from '../Modal/Modal';
 
 export const Login = () => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleChange = ({ target: { name, value } }) => {
     switch (name) {
-      case "email":
+      case 'email':
         return setEmail(value);
-      case "password":
+      case 'password':
         return setPassword(value);
       default:
         return;
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     dispatch(login({ email, password }));
-    reset();
+
+    if (login.fulfilled) {
+      reset();
+    }
   };
 
   const reset = () => {
-    setEmail("");
-    setPassword("");
+    setEmail('');
+    setPassword('');
   };
 
   return (

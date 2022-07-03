@@ -39,6 +39,6 @@
 
 .buttonClose:hover,
 .buttonClose:focus {
-  background-color: #008cba;
+  background-color: indigo;
   color: white;
 }
