@@ -1,16 +1,15 @@
 import { Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Loader } from "./components/Loader/Loader";
-import { AppBar } from "./components/AppBar/AppBar";
-import { Contacts } from "./components/Contacts/Contacts";
-import { Home } from "./components/Home/Home";
-import { Register } from "./components/Register/Register";
-import { Login } from "./components/Login/Login";
+import { Loader } from "./Loader/Loader";
+import { AppBar } from "./AppBar/AppBar";
+import { Contacts } from "./Contacts/Contacts";
+import { Home } from "./Home/Home";
+import { Register } from "./Register/Register";
+import { Login } from "./Login/Login";
 import { useDispatch } from "react-redux";
-
-import { fetchCurrentUser } from "./redux/auth/authOperation";
-import PrivateRoute from "./components/Route/PrivateRoute";
-import { PublicRoute } from "./components/Route/PublicRoute";
+import { fetchCurrentUser } from "../redux/auth/authOperation";
+import PrivateRoute from "./Route/PrivateRoute";
+import { PublicRoute } from "./Route/PublicRoute";
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -20,10 +19,9 @@ export const App = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <AppBar />
-      <Suspense>
-        <Routes>
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path="/" element={<AppBar />}>
           <Route path="/" index element={<Home />} />
           <Route
             path="register"
@@ -50,10 +48,9 @@ export const App = () => {
               </PrivateRoute>
             }
           />
-
-          <Route path="*" element={<h1>Not found 404</h1>} />
-        </Routes>
-      </Suspense>
-    </>
+        </Route>
+        <Route path="*" element={<h1>Not found 404</h1>} />
+      </Routes>
+    </Suspense>
   );
 };

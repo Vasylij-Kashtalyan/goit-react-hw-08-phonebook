@@ -1,16 +1,14 @@
-import { addContact, fetchContacts, removeContact } from "./contactsOperations";
 import { createSlice } from "@reduxjs/toolkit";
-
-const setPending = (state) => {
-  state.status = "loading";
-  state.error = null;
-};
+import { fetchContacts, addContact, removeContact } from "./contactsOperations";
 
 const setError = (state, { payload }) => {
   state.status = "rejected";
   state.error = payload;
 };
-
+const setPending = (state) => {
+  state.status = "loading";
+  state.error = null;
+};
 const contactsSlice = createSlice({
   name: "contacts",
   initialState: { items: [], filter: "", status: null, error: null },
@@ -41,17 +39,13 @@ const contactsSlice = createSlice({
         items: [...state.items, payload],
       };
     },
-
-    [fetchContacts.pending]: setPending,
-    [fetchContacts.rejected]: setError,
-
-    [addContact.pending]: setPending,
-    [addContact.rejected]: setError,
-
     [removeContact.pending]: setPending,
+    [fetchContacts.pending]: setPending,
+    [addContact.pending]: setPending,
+    [fetchContacts.rejected]: setError,
     [removeContact.rejected]: setError,
+    [addContact.rejected]: setError,
   },
 });
-
 export default contactsSlice.reducer;
 export const { filterContacts } = contactsSlice.actions;

@@ -13,6 +13,7 @@ export const UserMenu = () => {
       <Link to={"/contacts"} className={s.link}>
         {name}
       </Link>
+      {/* <span className={s.span}></span> */}
       <button
         className={s.btn}
         type="button"
