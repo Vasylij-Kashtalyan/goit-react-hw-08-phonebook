@@ -20,9 +20,10 @@ export const App = () => {
   }, [dispatch]);
 
   return (
-    <Suspense fallback={<Loader />}>
-      <Routes>
-        <Route path="/" element={<AppBar />}>
+    <>
+      <AppBar />
+      <Suspense>
+        <Routes>
           <Route path="/" index element={<Home />} />
           <Route
             path="register"
@@ -49,9 +50,10 @@ export const App = () => {
               </PrivateRoute>
             }
           />
-        </Route>
-        <Route path="*" element={<h1>Not found 404</h1>} />
-      </Routes>
-    </Suspense>
+
+          <Route path="*" element={<h1>Not found 404</h1>} />
+        </Routes>
+      </Suspense>
+    </>
   );
 };
