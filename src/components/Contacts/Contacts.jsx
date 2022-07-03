@@ -11,9 +11,10 @@ import Filter from "../Filter/Filter";
 
 export const Contacts = () => {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-
+  const [contact, setContact] = useState({
+    name: "",
+    number: "",
+  });
   const { items, filter } = useSelector((state) => state.contacts);
 
   useEffect(() => {
@@ -22,42 +23,15 @@ export const Contacts = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    switch (name) {
-      case "name":
-        setName(value);
-        break;
-      case "number":
-        setNumber(value);
-        break;
-
-      default:
-        return;
-    }
+    setContact((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (
-      items
-        .map((items) => items.name.toLowerCase())
-        .includes(name.toLowerCase())
-    ) {
-      return Notiflix.Notify.warning(`${name} is already in contacts`);
-    }
-
-    dispatch(addContact({ name, number }));
-
-    if (addContact.fulfilled) {
-      reset();
-      return Notiflix.Notify.success(`${name} is adde in contacts`);
-    }
-  };
-
-  const reset = () => {
-    setName("");
-    setNumber("");
+    dispatch(addContact(contact));
+    setContact({ name: "", number: "" });
   };
 
   return (
@@ -69,7 +43,7 @@ export const Contacts = () => {
             <input
               onChange={handleChange}
               className={s.form__input}
-              value={name}
+              // value={contact}
               type="text"
               name="name"
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -82,7 +56,7 @@ export const Contacts = () => {
             <input
               onChange={handleChange}
               className={s.form__input}
-              value={number}
+              // value={contact}
               type="tel"
               name="number"
               pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"

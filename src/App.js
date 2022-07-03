@@ -12,7 +12,7 @@ import { fetchCurrentUser } from "./redux/auth/authOperation";
 import PrivateRoute from "./components/Route/PrivateRoute";
 import { PublicRoute } from "./components/Route/PublicRoute";
 
-const App = () => {
+export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,5 +55,3 @@ const App = () => {
     </Suspense>
   );
 };
-
-export default App;

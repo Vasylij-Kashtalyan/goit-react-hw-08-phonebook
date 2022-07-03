@@ -69,7 +69,7 @@ export const Register = () => {
           Sign up
         </button>
         <Link className={s.link} to="/login">
-          to Login
+          &#8594; to Login
         </Link>
       </form>
     </ModalWindow>
